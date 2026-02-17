@@ -3,9 +3,15 @@ import { Command } from 'commander';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-const pkg = JSON.parse(
-  readFileSync(resolve(__dirname, '../package.json'), 'utf-8')
-);
+let pkg: any;
+try {
+  pkg = JSON.parse(
+    readFileSync(resolve(__dirname, '../package.json'), 'utf-8')
+  );
+} catch (error) {
+  console.error('Error: Could not read package.json');
+  process.exit(1);
+}
 
 const program = new Command();
 
