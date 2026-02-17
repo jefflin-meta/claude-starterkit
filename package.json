@@ -1,7 +1,6 @@
 {
   "name": "starterkit",
   "version": "0.1.0",
-  "description": "A Claude CLI plugin for small AI development teams",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
@@ -9,18 +8,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "vitest run",
+    "test": "vitest",
     "dev": "tsc --watch"
   },
-  "keywords": [
-    "claude",
-    "cli",
-    "plugin",
-    "ai",
-    "development"
-  ],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.3.0",
