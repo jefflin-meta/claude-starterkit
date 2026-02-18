@@ -81,7 +81,7 @@
   <div class="section">
     <h2>Main Prompt</h2>
     <p>{{mainPrompt}}</p>
-    <button class="copy-btn" onclick="copyToClipboard('{{mainPrompt}}')">Copy Prompt</button>
+    <button class="copy-btn" data-copy-text="{{mainPrompt}}">Copy Prompt</button>
   </div>
 
   {{#if subAgents.length}}
@@ -120,13 +120,16 @@
   {{/if}}
 
   <script>
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Copied to clipboard!');
-      }).catch(err => {
-        console.error('Failed to copy:', err);
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.dataset.copyText;
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Copied to clipboard!');
+        }).catch(err => {
+          console.error('Failed to copy:', err);
+        });
       });
-    }
+    });
   </script>
 </body>
 </html>

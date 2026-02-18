@@ -67,4 +67,32 @@ describe('HTML Generator', () => {
     expect(html).toContain('Explore');
     expect(html).toContain('Research patterns');
   });
+
+  it('should escape special characters to prevent XSS', () => {
+    const maliciousSession: Session = {
+      id: 'session-xss',
+      timestamp: '2026-02-17T14:30:22Z',
+      user: 'test-user',
+      branch: 'main',
+      mainPrompt: '<script>alert("XSS")</script>',
+      filesModified: ['file.ts'],
+      subAgents: [
+        {
+          type: 'Explore',
+          task: '"); alert("XSS");//',
+          results: '<img src=x onerror=alert(1)>'
+        }
+      ],
+      codeChanges: []
+    };
+
+    const html = generateSessionHTML(maliciousSession);
+
+    // Should not contain executable script tags
+    expect(html).not.toContain('<script>alert("XSS")</script>');
+    // Should escape HTML entities
+    expect(html).toContain('&lt;script&gt;');
+    // Should not have inline onclick with user input
+    expect(html).not.toMatch(/onclick=["'].*alert/);
+  });
 });
