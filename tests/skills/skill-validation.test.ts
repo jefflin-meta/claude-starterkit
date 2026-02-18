@@ -3,21 +3,21 @@ import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
 describe('Skill Validation', () => {
-  const skillsDir = resolve(__dirname, '../../core/skills');
+  const skillsDir = resolve(__dirname, '../../skills');
   const requiredSkills = ['publish', 'onboard', 'security-audit', 'review-changes'];
 
   it('should have required custom skills', () => {
     requiredSkills.forEach(skill => {
       const skillPath = resolve(skillsDir, skill);
       expect(existsSync(skillPath)).toBe(true);
-      expect(existsSync(`${skillPath}/skill.md`)).toBe(true);
+      expect(existsSync(`${skillPath}/SKILL.md`)).toBe(true);
     });
   });
 
-  it('should have valid skill.md format', () => {
+  it('should have valid SKILL.md format', () => {
     requiredSkills.forEach(skillName => {
       const skillContent = readFileSync(
-        resolve(skillsDir, skillName, 'skill.md'),
+        resolve(skillsDir, skillName, 'SKILL.md'),
         'utf-8'
       );
 

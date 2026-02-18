@@ -50,7 +50,8 @@
       "Bash(npm install -g .)",
       "Bash(git remote:*)",
       "Bash(git fetch:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(find:*)"
     ]
   }
 }
