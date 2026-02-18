@@ -49,7 +49,8 @@
       "Bash(npm link:*)",
       "Bash(npm install -g .)",
       "Bash(git remote:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(curl:*)"
     ]
   }
 }
