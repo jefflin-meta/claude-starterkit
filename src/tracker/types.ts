@@ -29,6 +29,7 @@ export function validateSession(session: Session): boolean {
     session.id &&
     session.timestamp &&
     session.user &&
+    session.branch &&
     session.mainPrompt &&
     Array.isArray(session.filesModified) &&
     Array.isArray(session.subAgents) &&
