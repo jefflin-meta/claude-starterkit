@@ -25,12 +25,16 @@ export interface Session {
 }
 
 export function validateSession(session: Session): boolean {
+  if (!session || typeof session !== 'object') {
+    return false;
+  }
+
   return !!(
-    session.id &&
-    session.timestamp &&
-    session.user &&
-    session.branch &&
-    session.mainPrompt &&
+    session.id && session.id.trim() &&
+    session.timestamp && session.timestamp.trim() &&
+    session.user && session.user.trim() &&
+    session.branch && session.branch.trim() &&
+    session.mainPrompt && session.mainPrompt.trim() &&
     Array.isArray(session.filesModified) &&
     Array.isArray(session.subAgents) &&
     Array.isArray(session.codeChanges)
@@ -38,5 +42,5 @@ export function validateSession(session: Session): boolean {
 }
 
 export function generateSessionId(): string {
-  return `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `session-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
 }
