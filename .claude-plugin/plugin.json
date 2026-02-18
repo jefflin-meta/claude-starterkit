@@ -1,0 +1,13 @@
+{
+  "name": "starterkit",
+  "description": "Claude CLI plugin for small AI development teams with session tracking, publish workflows, and security audits",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jeff Lin",
+    "email": "jeff@example.com"
+  },
+  "homepage": "https://github.com/jefflin-meta/claude-starterkit",
+  "repository": "https://github.com/jefflin-meta/claude-starterkit",
+  "license": "MIT",
+  "keywords": ["claude", "cli", "plugin", "ai", "collaboration", "tdd", "security", "code-review", "session-tracking"]
+}
