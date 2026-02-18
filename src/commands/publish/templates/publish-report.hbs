@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publish Report - {{branch}}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; padding: 2rem; max-width: 1000px; margin: 0 auto; background: #f5f5f5; }
+    .header { background: white; padding: 2rem; border-radius: 8px; margin-bottom: 1rem; }
+    .section { background: white; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; }
+    .pass { color: #28a745; font-weight: bold; }
+    .fail { color: #dc3545; font-weight: bold; }
+    .step { display: flex; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #eee; }
+    .step:last-child { border-bottom: none; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .copy-btn { background: #0066cc; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-top: 0.5rem; }
+    pre { background: #f9f9f9; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Publish Workflow Report</h1>
+    <p><strong>Branch:</strong> {{branch}}</p>
+    <p><strong>Date:</strong> {{timestamp}}</p>
+  </div>
+
+  <div class="section">
+    <h2>Workflow Steps</h2>
+
+    <div class="step">
+      <span>1. Tests</span>
+      <span class="{{#if testsPassed}}pass{{else}}fail{{/if}}">
+        {{#if testsPassed}}✓ PASSED{{else}}✗ FAILED{{/if}}
+      </span>
+    </div>
+    {{#unless testsPassed}}
+      <pre>{{testsOutput}}</pre>
+      <!-- Security: {{testsOutput}} is automatically HTML-escaped by Handlebars.
+           Quotes are escaped to &quot;, apostrophes to &#x27;, and HTML tags like <script> to &lt;script&gt;.
+           This prevents XSS attacks even when testsOutput contains malicious content.
+           See tests/commands/publish/report-generator.test.ts for XSS prevention verification. -->
+      <button class="copy-btn" data-copy-text="{{testsOutput}}">Copy Errors</button>
+    {{/unless}}
+
+    <div class="step">
+      <span>2. Code Review</span>
+      <span class="{{#if codeReviewPassed}}pass{{else}}fail{{/if}}">
+        {{#if codeReviewPassed}}✓ PASSED{{else}}✗ FAILED{{/if}}
+      </span>
+    </div>
+    {{#if codeReviewReport}}
+      <a href="../../{{codeReviewReport}}" target="_blank">View Code Review Report</a>
+    {{/if}}
+
+    <div class="step">
+      <span>3. Security Audit</span>
+      <span class="{{#if securityAuditPassed}}pass{{else}}fail{{/if}}">
+        {{#if securityAuditPassed}}✓ PASSED{{else}}✗ FAILED{{/if}}
+      </span>
+    </div>
+    {{#if securityReport}}
+      <a href="../../{{securityReport}}" target="_blank">View Security Report</a>
+    {{/if}}
+
+    <div class="step">
+      <span>4. Visual QA</span>
+      <span class="{{#if visualQAPassed}}pass{{else}}fail{{/if}}">
+        {{#if visualQAPassed}}✓ PASSED{{else}}✗ FAILED{{/if}}
+      </span>
+    </div>
+    {{#if visualQAReport}}
+      <a href="../../{{visualQAReport}}" target="_blank">View Visual QA Report</a>
+    {{/if}}
+  </div>
+
+  {{#if prUrl}}
+  <div class="section">
+    <h2>Pull Request</h2>
+    <p><a href="{{prUrl}}" target="_blank">{{prUrl}}</a></p>
+  </div>
+  {{/if}}
+
+  <script>
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const text = btn.getAttribute('data-copy-text');
+        navigator.clipboard.writeText(text).then(() => alert('Copied!'));
+      });
+    });
+  </script>
+</body>
+</html>
