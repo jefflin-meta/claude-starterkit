@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { mkdirSync, rmSync, existsSync, readFileSync, mkdtempSync } from 'fs';
-import { resolve, join } from 'path';
+import { rmSync, existsSync, readFileSync, mkdtempSync } from 'fs';
+import { join } from 'path';
 import { tmpdir } from 'os';
 import { initCommand } from '../../src/commands/init';
 
@@ -39,5 +39,8 @@ describe('Init Command', () => {
     );
     expect(config.version).toBeDefined();
     expect(config.modules).toEqual([]);
+    expect(config.settings).toBeDefined();
+    expect(config.settings.autoTrack).toBe(true);
+    expect(config.settings.reportFormat).toBe('html');
   });
 });
