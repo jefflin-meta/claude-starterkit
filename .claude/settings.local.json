@@ -42,7 +42,14 @@
       "Bash(icacls:*)",
       "Bash(cmd /c \"rmdir /s /q C:\\\\dev\\\\starterkit\\\\tests\\\\fixtures\\\\test-project\")",
       "Bash(tasklist:*)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(npm link)",
+      "Bash(starterkit --version:*)",
+      "Bash(npm unlink:*)",
+      "Bash(npm link:*)",
+      "Bash(npm install -g .)",
+      "Bash(git remote:*)",
+      "Bash(git fetch:*)"
     ]
   }
 }
