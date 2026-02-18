@@ -51,7 +51,9 @@
       "Bash(git remote:*)",
       "Bash(git fetch:*)",
       "Bash(curl:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(git --version:*)",
+      "Bash(claude:*)"
     ]
   }
 }

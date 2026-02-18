@@ -4,7 +4,21 @@ Claude CLI plugin for small AI development teams.
 
 ## Installation
 
-### From GitHub (for testing)
+### Via Claude CLI Plugin Marketplace (Recommended)
+
+```bash
+# Add the starterkit marketplace
+claude plugin marketplace add jefflin-meta/claude-starterkit
+
+# Install the plugin
+claude plugin install starterkit
+
+# IMPORTANT: Restart your Claude session to activate skills
+# Exit current session (Ctrl+C or Ctrl+D) and start new one:
+claude
+```
+
+### From GitHub (for development)
 
 ```bash
 npm install -g git+https://github.com/jefflin-meta/claude-starterkit.git
@@ -18,10 +32,18 @@ npm install -g starterkit
 
 ## Usage
 
+After installation, restart your Claude CLI session to access the new skills.
+
 Initialize starterkit in your project:
 
 ```bash
 starterkit init
+```
+
+Or use the interactive onboarding skill in Claude CLI:
+
+```bash
+/onboard
 ```
 
 ## Available Commands

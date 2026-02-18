@@ -7,6 +7,13 @@ description: Interactive onboarding for new team members
 
 Guide new developers through setup and introduce team workflows.
 
+## Prerequisites
+
+**If you just installed the starterkit plugin:**
+- You MUST restart your Claude session for skills to activate
+- Exit current session (Ctrl+C or Ctrl+D), then run `claude` to start fresh
+- Run `/onboard` again in the new session
+
 ## Checklist
 
 1. Verify Node.js, Claude CLI, git installed
