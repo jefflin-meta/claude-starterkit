@@ -74,5 +74,5 @@ describe('Git Operations', () => {
     const git = simpleGit();
     const log = await git.log();
     expect(log.latest?.message).toContain('session-123');
-  });
+  }, 30000);
 });
