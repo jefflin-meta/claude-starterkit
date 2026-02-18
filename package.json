@@ -7,8 +7,15 @@
   "bin": {
     "starterkit": "dist/cli.js"
   },
+  "files": [
+    "dist",
+    "core",
+    "src",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc && node -e \"const fs=require('fs');const path=require('path');const copyTemplates=(src,dst)=>{fs.mkdirSync(dst,{recursive:true});fs.readdirSync(src).filter(f=>f.endsWith('.hbs')).forEach(f=>fs.copyFileSync(path.join(src,f),path.join(dst,f)))};copyTemplates('src/tracker/templates','dist/tracker/templates');copyTemplates('src/commands/publish/templates','dist/commands/publish/templates')\"",
+    "prepare": "npm run build",
     "test": "vitest run",
     "dev": "tsc --watch"
   },
