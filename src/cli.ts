@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { initCommand } from './commands/init';
 
 let pkg: any;
 try {
@@ -23,8 +24,8 @@ program
 program
   .command('init')
   .description('Initialize starterkit in current project')
-  .action(() => {
-    console.log('Initializing starterkit...');
+  .action(async () => {
+    await initCommand();
   });
 
 program
