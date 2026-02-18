@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session Report - {{id}}</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 { margin: 0 0 10px 0; color: #333; }
+    .meta { color: #666; font-size: 14px; }
+    .section {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .section h2 { margin-top: 0; color: #444; }
+    .sub-agent {
+      border-left: 3px solid #4a90e2;
+      padding-left: 15px;
+      margin: 10px 0;
+    }
+    .sub-agent-nested {
+      border-left: 3px solid #7bb3ff;
+      margin-left: 20px;
+    }
+    details summary {
+      cursor: pointer;
+      padding: 5px 0;
+      user-select: none;
+    }
+    details summary:hover { background: #f0f0f0; }
+    .copy-btn {
+      background: #4a90e2;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .copy-btn:hover { background: #357abd; }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    .file-list li { margin: 5px 0; }
+    .stats { color: #666; font-size: 14px; }
+    .additions { color: #28a745; }
+    .deletions { color: #d73a49; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>AI Session Report</h1>
+    <div class="meta">
+      <strong>Session ID:</strong> {{id}}<br>
+      <strong>Timestamp:</strong> {{timestamp}}<br>
+      <strong>User:</strong> {{user}}<br>
+      <strong>Branch:</strong> {{branch}}
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Main Prompt</h2>
+    <p>{{mainPrompt}}</p>
+    <button class="copy-btn" onclick="copyToClipboard('{{mainPrompt}}')">Copy Prompt</button>
+  </div>
+
+  {{#if subAgents.length}}
+  <div class="section">
+    <h2>Sub-Agents</h2>
+    {{#each subAgents}}
+      {{> subAgentPartial this}}
+    {{/each}}
+  </div>
+  {{/if}}
+
+  {{#if filesModified.length}}
+  <div class="section">
+    <h2>Files Modified</h2>
+    <ul class="file-list">
+      {{#each filesModified}}
+        <li><code>{{this}}</code></li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+
+  {{#if codeChanges.length}}
+  <div class="section">
+    <h2>Code Changes</h2>
+    {{#each codeChanges}}
+      <div>
+        <code>{{file}}</code>
+        <span class="stats">
+          <span class="additions">+{{additions}}</span>
+          <span class="deletions">-{{deletions}}</span>
+        </span>
+      </div>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  <script>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied to clipboard!');
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
+  </script>
+</body>
+</html>

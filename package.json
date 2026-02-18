@@ -8,7 +8,7 @@
     "starterkit": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node -e \"const fs=require('fs');const path=require('path');const src='src/tracker/templates';const dst='dist/tracker/templates';fs.mkdirSync(dst,{recursive:true});fs.readdirSync(src).filter(f=>f.endsWith('.hbs')).forEach(f=>fs.copyFileSync(path.join(src,f),path.join(dst,f)))\"",
     "test": "vitest run",
     "dev": "tsc --watch"
   },
