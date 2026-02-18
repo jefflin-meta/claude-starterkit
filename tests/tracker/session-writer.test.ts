@@ -55,4 +55,32 @@ describe('Session Writer', () => {
 
     expect(filePath).toMatch(/user-auth-feature\.html$/);
   });
+
+  it('should handle empty and invalid topic names', async () => {
+    const session: Session = {
+      id: 'session-125',
+      timestamp: '2026-02-17T14:30:22Z',
+      user: 'test-user',
+      branch: 'main',
+      mainPrompt: 'Test',
+      filesModified: [],
+      subAgents: [],
+      codeChanges: []
+    };
+
+    // Empty topic
+    const emptyPath = await writeSession(session, '');
+    expect(emptyPath).toMatch(/untitled\.html$/);
+    expect(existsSync(emptyPath)).toBe(true);
+
+    // Only special characters
+    const specialPath = await writeSession(session, '!!!@@@###');
+    expect(specialPath).toMatch(/untitled\.html$/);
+    expect(existsSync(specialPath)).toBe(true);
+
+    // Whitespace only
+    const whitespacePath = await writeSession(session, '   ');
+    expect(whitespacePath).toMatch(/untitled\.html$/);
+    expect(existsSync(whitespacePath)).toBe(true);
+  });
 });

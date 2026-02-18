@@ -1,13 +1,23 @@
-import { writeFileSync } from 'fs';
-import { resolve } from 'path';
+import { writeFileSync, mkdirSync } from 'fs';
+import { resolve, dirname } from 'path';
 import { Session } from './types';
 import { generateSessionHTML } from './html-generator';
 
+const MAX_TOPIC_LENGTH = 100;
+
 function sanitizeTopic(topic: string): string {
-  return topic
+  const sanitized = topic
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
+
+  // Fallback to 'untitled' if topic is empty after sanitization
+  if (!sanitized) {
+    return 'untitled';
+  }
+
+  // Limit length to prevent filesystem issues
+  return sanitized.substring(0, MAX_TOPIC_LENGTH);
 }
 
 function generateFilename(timestamp: string, topic: string): string {
@@ -23,12 +33,19 @@ function generateFilename(timestamp: string, topic: string): string {
   return `${year}-${month}-${day}-${hours}${minutes}${seconds}-${sanitized}.html`;
 }
 
-export async function writeSession(session: Session, topic: string): Promise<string> {
-  const html = generateSessionHTML(session);
-  const filename = generateFilename(session.timestamp, topic);
-  const filePath = resolve(process.cwd(), 'docs/ai-sessions', filename);
+export function writeSession(session: Session, topic: string): string {
+  try {
+    const html = generateSessionHTML(session);
+    const filename = generateFilename(session.timestamp, topic);
+    const filePath = resolve(process.cwd(), 'docs/ai-sessions', filename);
 
-  writeFileSync(filePath, html, 'utf-8');
+    // Ensure directory exists before writing
+    mkdirSync(dirname(filePath), { recursive: true });
 
-  return filePath;
+    writeFileSync(filePath, html, 'utf-8');
+
+    return filePath;
+  } catch (error: any) {
+    throw new Error(`Failed to write session file: ${error.message}`);
+  }
 }
