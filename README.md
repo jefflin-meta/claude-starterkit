@@ -12,11 +12,18 @@ claude plugin marketplace add jefflin-meta/claude-starterkit
 
 # Install the plugin
 claude plugin install starterkit
+# Note: "(no content)" means installation succeeded
+```
 
-# IMPORTANT: Restart your Claude session to activate skills
-# Exit current session (Ctrl+C or Ctrl+D) and start new one:
+**⚠️ IMPORTANT: Restart Required**
+
+After installation, you MUST restart your Claude session:
+```bash
+# Exit current session (Ctrl+C or Ctrl+D), then:
 claude
 ```
+
+Skills will NOT work until you restart!
 
 ### From GitHub (for development)
 

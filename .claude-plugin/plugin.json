@@ -1,6 +1,6 @@
 {
   "name": "starterkit",
-  "description": "Claude CLI plugin for small AI development teams with session tracking, publish workflows, and security audits",
+  "description": "Claude CLI plugin for small AI development teams with session tracking, publish workflows, and security audits. IMPORTANT: After installation, restart your Claude session to activate skills.",
   "version": "0.1.0",
   "author": {
     "name": "Jeff Lin",
@@ -9,12 +9,5 @@
   "homepage": "https://github.com/jefflin-meta/claude-starterkit",
   "repository": "https://github.com/jefflin-meta/claude-starterkit",
   "license": "MIT",
-  "keywords": ["claude", "cli", "plugin", "ai", "collaboration", "tdd", "security", "code-review", "session-tracking"],
-  "postInstall": "echo '\n✨ Starterkit installed successfully!\n\n📌 IMPORTANT: Restart your Claude session to activate skills:\n   - Exit current session (Ctrl+C or Ctrl+D)\n   - Start new session: claude\n\n🚀 Available skills:\n   /onboard, /publish, /security-audit, /review-changes\n\nRun /help in your new session.\n'",
-  "messages": {
-    "postInstall": "✨ Starterkit installed successfully!\n\n📌 IMPORTANT: Please restart your Claude session to activate the new skills:\n   - Exit the current Claude session (Ctrl+C or Ctrl+D)\n   - Start a new session with: claude\n\n🚀 Available skills:\n   - /onboard - Interactive onboarding for new team members\n   - /publish - Run comprehensive pre-merge workflow\n   - /security-audit - Security vulnerability scanning\n   - /review-changes - Re-analyze code after fixes\n\nRun /help in your new session to see all available commands."
-  },
-  "hooks": {
-    "postInstall": "echo 'Starterkit installed! Please restart Claude session to activate skills.'"
-  }
+  "keywords": ["claude", "cli", "plugin", "ai", "collaboration", "tdd", "security", "code-review", "session-tracking"]
 }
